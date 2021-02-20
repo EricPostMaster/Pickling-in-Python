@@ -114,5 +114,5 @@ Now, go forth and pickle!
 
 
 ## Other Resources
-[Official pickle module docs](https://docs.python.org/3/library/pickle.html)
+[Official pickle module docs](https://docs.python.org/3/library/pickle.html)  
 [Save and Load Machine Learning Models in Python with scikit-learn](https://machinelearningmastery.com/save-load-machine-learning-models-python-scikit-learn/)
