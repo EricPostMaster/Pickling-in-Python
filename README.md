@@ -3,7 +3,7 @@
 >_Well, save my model and call me pickled!_ :cucumber:
 
 ## Why pickle?  What do I pickle?
-Pickling does exactly what it sounds like.  It preserves something for later.  If you train and score a model and want to save it for later or deploy it for use on new data, you can pickle it so you don't have to retrain the model every time you want to use it.  The `pickle` module is built into Python and uses one line of code to save your model to a separate file that can be called and used later, even in a completely separate file.
+Pickling does exactly what it sounds like: it preserves something for later.  If you train and score a model and want to save it for later or deploy it for use on new data, you can pickle it so you don't have to retrain the model every time you want to use it.  The `pickle` module is built into Python and uses one line of code to save your model to a separate file that can be called and used later, even in a completely separate script or notebook.
 
 ## Example:
 This is an example of a simple linear regression predicting salary using years of experience.  The data came from [this Kaggle data set](https://www.kaggle.com/rohankayan/years-of-experience-and-salary-dataset).
@@ -33,7 +33,7 @@ X = pd.DataFrame(df.years_experience)
 y = pd.DataFrame(df.salary)
 
 # Fit regression
-reg = LinearRegression().fit(X,y)
+reg = LinearRegression().fit(X,y)  #<-- We're going to pickle this in a minute
 ```
 
 We can print the single coefficient and the intercept to compare with the new object when we unpickle it:
@@ -43,11 +43,13 @@ print(f"Coefficient: {round(reg.coef_[0][0],2)}")  # 9267.24
 print(f"Intercept: {round(reg.intercept_[0],2)}")  # 27178.6
 ```
 
-Lastly, to save the regression model object (`reg`), we use the `.dump()` method to drop it into a file in the working directory, in this case called `save.p`.  The `wb` argument is telling the pickle module to write to a binary file.
+Lastly, to save the regression model object (`reg`), we use the `.dump()` method to save the model in a file called `save.p` in the working directory.  The `wb` argument is telling the pickle module to write (i.e., create) a new file.
+
+I like to think of it like storing something in a box. We are going to `open` a box and `dump` our `reg` model into it.  Then we'll label it `pickled_model.p` so we can find it easily later.
 
 ```python
 # Pickle the regression model object
-pickle.dump(reg, open("save.p", "wb"))
+pickle.dump(reg, open("pickled_model.p", "wb"))
 ```
 
 ### Unpickle the model
@@ -68,11 +70,11 @@ X_test = pd.DataFrame(test.years_experience)
 y_test = pd.DataFrame(test.salary)
 ```
 
-Now, load the pickled model using the `.load()` method, calling the file (`save.p`) and the read binary argument `rb`.
+Now, load the pickled model using the `.load()` method, opening the file we saved earlier (`pickled_model.p`) and reading it with the `rb` argument.
 
 ```python
 # Unpickle the regression model object
-new_reg = pickle.load(open("save.p", "rb"))
+new_reg = pickle.load(open("pickled_model.p", "rb"))
 ```
 
 We can print the coefficient and intercept to verify that it's the same model:
@@ -102,10 +104,15 @@ print(f"MAPE: {round(mape[0]*100, 2)}%")  # 7.96%
 The actual results in this example aren't that important, but I wanted to go through the whole example.  I also wanted to demonstrate that you don't have to import the LinearRegression module when you unpickle the file because the methods required for predicting and scoring were pickled in the original file.  Nifty! :smiley:
 
 
-## Considerations
+## Considerations & Conclusion
 A couple of things to keep in mind:
 - When you unpickle something, you'll need to be running on the same version of Python.
 - Only unpickle files that you trust completely.  You can pickle just about any object, including malicious code, so be extra cautious.
 
 
 Now, go forth and pickle!
+
+
+## Other Resources
+[Official pickle module docs](https://docs.python.org/3/library/pickle.html)
+[Save and Load Machine Learning Models in Python with scikit-learn](https://machinelearningmastery.com/save-load-machine-learning-models-python-scikit-learn/)
