@@ -3,7 +3,9 @@
 >_Well, save my model and call me pickled!_ :cucumber:
 
 ## Why pickle?  What do I pickle?
-Pickling does exactly what it sounds like: it preserves something for later.  If you train and score a model and want to save it for later or deploy it for use on new data, you can pickle it so you don't have to retrain the model every time you want to use it.  The `pickle` module is built into Python and uses one line of code to save your model to a separate file that can be called and used later, even in a completely separate script or notebook.
+Pickling does exactly what it sounds like: it preserves something for later.*  If you train and score a model and want to save it for later or deploy it for use on new data, you can pickle it so you don't have to retrain the model every time you want to use it.  The `pickle` module is built into Python and uses one line of code to save your model to a separate file that can be called and used later, even in a completely separate script or notebook.
+
+<sub>* Pickling a process called "serialization," which basically means it breaks your object down into a single-file stream of bytes and saves them in order.  In this tutorial, the object is a LinearRegression sklearn model.</sub>
 
 ## Example:
 This is an example of a simple linear regression predicting salary using years of experience.  The data came from [this Kaggle data set](https://www.kaggle.com/rohankayan/years-of-experience-and-salary-dataset).
@@ -49,7 +51,8 @@ I like to think of it like storing something in a box. We are going to `open` a 
 
 ```python
 # Pickle the regression model object
-pickle.dump(reg, open("pickled_model.p", "wb"))
+with open("pickled_model.p", "wb") as p:
+    pickle.dump(reg, p)
 ```
 
 ### Unpickle the model
@@ -74,7 +77,8 @@ Now, load the pickled model using the `.load()` method, opening the file we save
 
 ```python
 # Unpickle the regression model object
-new_reg = pickle.load(open("pickled_model.p", "rb"))
+with open("pickled_model.p", "rb") as p:
+    new_reg = pickle.load(p)
 ```
 
 We can print the coefficient and intercept to verify that it's the same model:
@@ -108,6 +112,7 @@ The actual results in this example aren't that important, but I wanted to go thr
 A couple of things to keep in mind:
 - When you unpickle something, you'll need to be running on the same version of Python.
 - Only unpickle files that you trust completely.  You can pickle just about any object, including malicious code, so be extra cautious.
+- The `pickle` module is exclusive to Python.  If you are planning to use your object in a different language or want the pickled object to be readable by humans, consider JSON serialization instead.  Wouldn't it be cool if there was a library that could pickle to JSON??  Oh look, it's [jsonpickle](https://github.com/jsonpickle/jsonpickle)!
 
 
 Now, go forth and pickle!
@@ -116,3 +121,7 @@ Now, go forth and pickle!
 ## Other Resources
 [Official pickle module docs](https://docs.python.org/3/library/pickle.html)  
 [Save and Load Machine Learning Models in Python with scikit-learn](https://machinelearningmastery.com/save-load-machine-learning-models-python-scikit-learn/)
+
+
+## Thanks
+Thanks to [Mark Freeman II](https://www.linkedin.com/in/mafreeman2) and [Timo Voipio](https://www.linkedin.com/in/t-voipio) for their suggestions on improving this repo :+1:
