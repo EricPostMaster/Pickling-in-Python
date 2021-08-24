@@ -5,7 +5,7 @@
 ## Why pickle?  What do I pickle?
 Pickling does exactly what it sounds like: it preserves something for later.*  If you train and score a model and want to save it for later or deploy it for use on new data, you can pickle it so you don't have to retrain the model every time you want to use it.  The `pickle` module is built into Python and uses one line of code to save your model to a separate file that can be called and used later, even in a completely separate script or notebook.
 
-<sub>* Pickling a process called "serialization," which basically means it breaks your object down into a single-file stream of bytes and saves them in order.  In this tutorial, the object is a LinearRegression sklearn model.</sub>
+<sub>* Pickling is a process called "serialization," which basically means it breaks your object down into a single-file stream of bytes and saves them in order.  In this tutorial, the object is a LinearRegression sklearn model.</sub>
 
 ## Example:
 This is an example of a simple linear regression predicting salary using years of experience.  The data came from [this Kaggle data set](https://www.kaggle.com/rohankayan/years-of-experience-and-salary-dataset).
