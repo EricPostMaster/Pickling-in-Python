@@ -45,7 +45,7 @@ print(f"Coefficient: {round(reg.coef_[0][0],2)}")  # 9267.24
 print(f"Intercept: {round(reg.intercept_[0],2)}")  # 27178.6
 ```
 
-Lastly, to save the regression model object (`reg`), we use the `.dump()` method to save the model in a file called `save.p` in the working directory.  The `wb` argument is telling the pickle module to write (i.e., create) a new file.
+Lastly, to save the regression model object (`reg`), we use the `.dump()` method to save the model in a file called `pickled_model.p` in the working directory.  The `wb` argument is telling the pickle module to write (i.e., create) a new file.
 
 I like to think of it like storing something in a box. We are going to `open` a box and `dump` our `reg` model into it.  Then we'll label it `pickled_model.p` so we can find it easily later.
 
